@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="あなたはIphone15を獲得します！">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iphone15獲得サイト</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+        }
+        #video-container {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .video-background {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        #start-button {
+            font-size: 24px;
+            padding: 15px 30px;
+            cursor: pointer;
+            z-index: 10;
+            background-color: gold;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 223, 0, 0.8);
+            color: black;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div id="video-container">
+        <video id="video" class="video-background" autoplay loop>
+            <source src="y2mate.com - See Tình  Chamber GREEN SCREEN_1080pFHR.mp4" type="video/mp4">
+        </video>
+    </div>
+    <button id="start-button">Iphone15を獲得します！</button>
+
+    <script>
+        document.getElementById('start-button').addEventListener('click', function() {
+            var videoContainer = document.getElementById('video-container');
+            var video = document.getElementById('video');
+
+            // ブラウザを全画面にする
+            if (videoContainer.requestFullscreen) {
+                videoContainer.requestFullscreen();
+            } else if (videoContainer.mozRequestFullScreen) { // Firefox
+                videoContainer.mozRequestFullScreen();
+            } else if (videoContainer.webkitRequestFullscreen) { // Chrome, Safari, Opera
+                videoContainer.webkitRequestFullscreen();
+            } else if (videoContainer.msRequestFullscreen) { // IE/Edge
+                videoContainer.msRequestFullscreen();
+            }
+
+            videoContainer.style.display = 'block';
+            video.play();
+            this.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
