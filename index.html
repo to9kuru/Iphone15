@@ -53,7 +53,7 @@
     <button id="start-button">Iphone15を獲得します！</button>
 
     <script>
-        document.getElementById('start-button').addEventListener('click', function() {
+document.getElementById('start-button').addEventListener('click', function() {
     var videoContainer = document.getElementById('video-container');
     var video = document.getElementById('video');
 
@@ -78,14 +78,17 @@
         }
     });
 
-    // 音の出力をデフォルトのスピーカーに変更
+    // 音の出力をデフォルトのスピーカーに変更（Macの内蔵スピーカーをターゲット）
     navigator.mediaDevices.enumerateDevices().then(devices => {
-        const audioOutputs = devices.filter(device => device.kind === 'audiooutput');
-        if (audioOutputs.length > 0) {
-            const defaultAudioOutput = audioOutputs[0];
-            video.setSinkId(defaultAudioOutput.deviceId).catch(error => {
-                console.error('音の出力を変更できませんでした:', error);
+        const internalSpeakers = devices.find(device =>
+            device.kind === 'audiooutput' && device.label.includes('内蔵') // '内蔵' is Japanese for 'Built-in'
+        );
+        if (internalSpeakers) {
+            video.setSinkId(internalSpeakers.deviceId).catch(error => {
+                console.error('音の出力を内蔵スピーカーに変更できませんでした:', error);
             });
+        } else {
+            console.warn('内蔵スピーカーが見つかりませんでした。デフォルトの出力を使用します。');
         }
     });
 
@@ -97,7 +100,6 @@
     // 最初に全画面表示
     enterFullScreen();
 });
-
     </script>
 </body>
 </html>
