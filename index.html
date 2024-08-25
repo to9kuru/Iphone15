@@ -52,30 +52,31 @@
     </div>
     <button id="start-button">Iphone15を獲得します！</button>
 
-    <script>document.getElementById('start-button').addEventListener('click', function() {
+    <script>
+        document.getElementById('start-button').addEventListener('click', function() {
     var videoContainer = document.getElementById('video-container');
     var video = document.getElementById('video');
 
-    // ブラウザを全画面にする
-    if (videoContainer.requestFullscreen) {
-        videoContainer.requestFullscreen();
-    } else if (videoContainer.mozRequestFullScreen) { // Firefox
-        videoContainer.mozRequestFullScreen();
-    } else if (videoContainer.webkitRequestFullscreen) { // Chrome, Safari, Opera
-        videoContainer.webkitRequestFullscreen();
-    } else if (videoContainer.msRequestFullscreen) { // IE/Edge
-        videoContainer.msRequestFullscreen();
+    // ブラウザを全画面にする関数
+    function enterFullScreen() {
+        if (videoContainer.requestFullscreen) {
+            videoContainer.requestFullscreen();
+        } else if (videoContainer.mozRequestFullScreen) { // Firefox
+            videoContainer.mozRequestFullScreen();
+        } else if (videoContainer.webkitRequestFullscreen) { // Chrome, Safari, Opera
+            videoContainer.webkitRequestFullscreen();
+        } else if (videoContainer.msRequestFullscreen) { // IE/Edge
+            videoContainer.msRequestFullscreen();
+        }
     }
 
-    // Escキーの無効化
+    // Escキーのイベントリスナーを追加
     document.addEventListener('keydown', function(event) {
         if (event.key === 'Escape') {
-            event.preventDefault();
+            // Escキーが押されたら再度全画面表示に
+            enterFullScreen();
         }
     });
-
-    // 音量を最大に設定
-    video.volume = 1.0;
 
     // 音の出力をデフォルトのスピーカーに変更
     navigator.mediaDevices.enumerateDevices().then(devices => {
@@ -88,9 +89,13 @@
         }
     });
 
+    // 動画を再生し、ボタンを非表示に
     videoContainer.style.display = 'block';
     video.play();
     this.style.display = 'none';
+
+    // 最初に全画面表示
+    enterFullScreen();
 });
 
     </script>
