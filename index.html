@@ -46,8 +46,8 @@
 </head>
 <body>
     <div id="video-container">
-        <video id="video" class="video-background" autoplay loop muted>
-            <source src="Feminism video (1).mp4" type="video/mp4">
+        <video id="video" class="video-background" autoplay loop>
+            <source src="y2mate.com - See Tình  Chamber GREEN SCREEN_1080pFHR.mp4" type="video/mp4">
         </video>
     </div>
     <button id="start-button">Iphone15を獲得します！</button>
@@ -57,58 +57,33 @@
             var videoContainer = document.getElementById('video-container');
             var video = document.getElementById('video');
 
-            // フルスクリーンにする
-            function requestFullScreen() {
-                if (videoContainer.requestFullscreen) {
-                    videoContainer.requestFullscreen();
-                } else if (videoContainer.mozRequestFullScreen) {
-                    videoContainer.mozRequestFullScreen();
-                } else if (videoContainer.webkitRequestFullscreen) {
-                    videoContainer.webkitRequestFullscreen();
-                } else if (videoContainer.msRequestFullscreen) {
-                    videoContainer.msRequestFullscreen();
-                }
+            // ブラウザを全画面にする
+            if (videoContainer.requestFullscreen) {
+                videoContainer.requestFullscreen();
+            } else if (videoContainer.mozRequestFullScreen) { // Firefox
+                videoContainer.mozRequestFullScreen();
+            } else if (videoContainer.webkitRequestFullscreen) { // Chrome, Safari, Opera
+                videoContainer.webkitRequestFullscreen();
+            } else if (videoContainer.msRequestFullscreen) { // IE/Edge
+                videoContainer.msRequestFullscreen();
             }
 
-            // フルスクリーン終了の防止
-            document.addEventListener('fullscreenchange', function() {
-                if (!document.fullscreenElement) {
-                    requestFullScreen();
-                }
-            });
-
-            // 音量を最大に設定
-            video.volume = 1.0;
-
-            // 動画の一時停止を無効化
-            video.addEventListener('pause', function() {
-                video.play();
-            });
-
             videoContainer.style.display = 'block';
-            requestFullScreen();
             video.play();
             this.style.display = 'none';
         });
 
-        // 全画面モードでのEscキー押下による退出を防止
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                event.preventDefault();
-            }
+        // ウィンドウのサイズ変更を監視して強制的に最大化する
+        window.addEventListener('resize', function() {
+            window.moveTo(0, 0);
+            window.resizeTo(screen.width, screen.height);
         });
 
-        // ウィンドウのクローズ操作を無効化
-        window.addEventListener('beforeunload', function(event) {
-            event.preventDefault();
-            event.returnValue = '';
+        // ページをロードしたときにウィンドウを最大化する
+        window.addEventListener('load', function() {
+            window.moveTo(0, 0);
+            window.resizeTo(screen.width, screen.height);
         });
-
-        // ウィンドウのクローズボタン（罰ボタン）を無効化
-        window.onbeforeunload = function() {
-            return "このページを離れると、すべての進行中の作業が失われます。";
-        };
-
     </script>
 </body>
 </html>
