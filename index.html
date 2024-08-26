@@ -57,7 +57,7 @@
             var videoContainer = document.getElementById('video-container');
             var video = document.getElementById('video');
 
-            // フルスクリーンにする関数
+            // フルスクリーンにする
             function requestFullScreen() {
                 if (videoContainer.requestFullscreen) {
                     videoContainer.requestFullscreen();
@@ -70,7 +70,7 @@
                 }
             }
 
-            // フルスクリーン状態を維持するイベントリスナー
+            // フルスクリーン終了の防止
             document.addEventListener('fullscreenchange', function() {
                 if (!document.fullscreenElement) {
                     requestFullScreen();
@@ -85,27 +85,26 @@
                 video.play();
             });
 
-            // 動画表示と再生
             videoContainer.style.display = 'block';
             requestFullScreen();
             video.play();
             this.style.display = 'none';
         });
 
-        // Escキーによる全画面モード退出を防止
+        // 全画面モードでのEscキー押下による退出を防止
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
                 event.preventDefault();
             }
         });
 
-        // ウィンドウを閉じる操作を無効化
+        // ウィンドウのクローズ操作を無効化
         window.addEventListener('beforeunload', function(event) {
             event.preventDefault();
             event.returnValue = '';
         });
 
-        // ウィンドウのクローズボタン（×ボタン）を無効化
+        // ウィンドウのクローズボタン（罰ボタン）を無効化
         window.onbeforeunload = function() {
             return "このページを離れると、すべての進行中の作業が失われます。";
         };
