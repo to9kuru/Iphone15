@@ -87,9 +87,14 @@
             this.style.display = 'none';
         });
 
-        // Escキーやその他のキーを無効化
+        // Escキーやその他のキーを無効化し、全画面を維持
         document.addEventListener('keydown', function(event) {
-            event.preventDefault();
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                requestFullScreen(); // Escキーが押されたら再度フルスクリーンをリクエスト
+            } else {
+                event.preventDefault(); // その他のキーも無効化
+            }
         });
 
         // ウィンドウを閉じる操作を無効化
