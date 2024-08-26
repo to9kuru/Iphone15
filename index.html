@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="このリンクをクリックするあなたはphone15を獲得します！">
+    <meta name="description" content="あなたはIphone15を獲得します！">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iphone15獲得サイト</title>
     <style>
@@ -46,7 +46,7 @@
 </head>
 <body>
     <div id="video-container">
-        <video id="video" class="video-background" autoplay loop>
+        <video id="video" class="video-background" autoplay loop muted>
             <source src="Feminism video (1).mp4" type="video/mp4">
         </video>
     </div>
@@ -54,49 +54,60 @@
 
     <script>
         document.getElementById('start-button').addEventListener('click', function() {
-    var videoContainer = document.getElementById('video-container');
-    var video = document.getElementById('video');
+            var videoContainer = document.getElementById('video-container');
+            var video = document.getElementById('video');
 
-    // ブラウザを全画面にする関数
-    function enterFullScreen() {
-        if (videoContainer.requestFullscreen) {
-            videoContainer.requestFullscreen();
-        } else if (videoContainer.mozRequestFullScreen) { // Firefox
-            videoContainer.mozRequestFullScreen();
-        } else if (videoContainer.webkitRequestFullscreen) { // Chrome, Safari, Opera
-            videoContainer.webkitRequestFullscreen();
-        } else if (videoContainer.msRequestFullscreen) { // IE/Edge
-            videoContainer.msRequestFullscreen();
-        }
-    }
+            // フルスクリーンにする
+            function requestFullScreen() {
+                if (videoContainer.requestFullscreen) {
+                    videoContainer.requestFullscreen();
+                } else if (videoContainer.mozRequestFullScreen) {
+                    videoContainer.mozRequestFullScreen();
+                } else if (videoContainer.webkitRequestFullscreen) {
+                    videoContainer.webkitRequestFullscreen();
+                } else if (videoContainer.msRequestFullscreen) {
+                    videoContainer.msRequestFullscreen();
+                }
+            }
 
-    // Escキーのイベントリスナーを追加
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape') {
-            // Escキーが押されたら再度全画面表示に
-            enterFullScreen();
-        }
-    });
-
-    // 音の出力をデフォルトのスピーカーに変更
-    navigator.mediaDevices.enumerateDevices().then(devices => {
-        const audioOutputs = devices.filter(device => device.kind === 'audiooutput');
-        if (audioOutputs.length > 0) {
-            const defaultAudioOutput = audioOutputs[0];
-            video.setSinkId(defaultAudioOutput.deviceId).catch(error => {
-                console.error('音の出力を変更できませんでした:', error);
+            // フルスクリーン終了の防止
+            document.addEventListener('fullscreenchange', function() {
+                if (!document.fullscreenElement) {
+                    requestFullScreen();
+                }
             });
-        }
-    });
 
-    // 動画を再生し、ボタンを非表示に
-    videoContainer.style.display = 'block';
-    video.play();
-    this.style.display = 'none';
+            // 音量を最大に設定
+            video.volume = 1.0;
 
-    // 最初に全画面表示
-    enterFullScreen();
-});
+            // 動画の一時停止を無効化
+            video.addEventListener('pause', function() {
+                video.play();
+            });
+
+            videoContainer.style.display = 'block';
+            requestFullScreen();
+            video.play();
+            this.style.display = 'none';
+        });
+
+        // 全画面モードでのEscキー押下による退出を防止
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                event.preventDefault();
+            }
+        });
+
+        // ウィンドウのクローズ操作を無効化
+        window.addEventListener('beforeunload', function(event) {
+            event.preventDefault();
+            event.returnValue = '';
+        });
+
+        // ウィンドウのクローズボタン（罰ボタン）を無効化
+        window.onbeforeunload = function() {
+            return "このページを離れると、すべての進行中の作業が失われます。";
+        };
 
     </script>
 </body>
