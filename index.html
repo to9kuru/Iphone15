@@ -46,7 +46,7 @@
 </head>
 <body>
     <div id="video-container">
-        <video id="video" class="video-background" autoplay loop muted>
+        <video id="video" class="video-background" autoplay loop>
             <source src="Feminism video (1).mp4" type="video/mp4">
         </video>
     </div>
@@ -57,7 +57,7 @@
             var videoContainer = document.getElementById('video-container');
             var video = document.getElementById('video');
 
-            // フルスクリーンにする
+            // フルスクリーンにする関数
             function requestFullScreen() {
                 if (videoContainer.requestFullscreen) {
                     videoContainer.requestFullscreen();
@@ -70,7 +70,7 @@
                 }
             }
 
-            // フルスクリーン終了の防止
+            // フルスクリーン状態を維持するイベントリスナー
             document.addEventListener('fullscreenchange', function() {
                 if (!document.fullscreenElement) {
                     requestFullScreen();
@@ -85,26 +85,29 @@
                 video.play();
             });
 
+            // 動画を再生し、エラーをキャッチしてログに出力
             videoContainer.style.display = 'block';
             requestFullScreen();
-            video.play();
+            video.play().catch(function(error) {
+                console.error('動画の再生に失敗しました:', error);
+            });
             this.style.display = 'none';
         });
 
-        // 全画面モードでのEscキー押下による退出を防止
+        // Escキーによる全画面モード退出を防止
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
                 event.preventDefault();
             }
         });
 
-        // ウィンドウのクローズ操作を無効化
+        // ウィンドウを閉じる操作を無効化
         window.addEventListener('beforeunload', function(event) {
             event.preventDefault();
             event.returnValue = '';
         });
 
-        // ウィンドウのクローズボタン（罰ボタン）を無効化
+        // ウィンドウのクローズボタン（×ボタン）を無効化
         window.onbeforeunload = function() {
             return "このページを離れると、すべての進行中の作業が失われます。";
         };
