@@ -11,9 +11,13 @@
             padding: 0;
             height: 100%;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             background-color: black;
         }
         #video-container {
+            display: none;
             position: absolute;
             top: 0;
             left: 0;
@@ -25,20 +29,35 @@
             height: 100%;
             object-fit: cover;
         }
+        #start-button {
+            font-size: 24px;
+            padding: 15px 30px;
+            cursor: pointer;
+            z-index: 10;
+            background-color: gold;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 223, 0, 0.8);
+            color: black;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+        }
     </style>
 </head>
 <body>
     <div id="video-container">
-        <video id="video" class="video-background" loop autoplay muted>
+        <video id="video" class="video-background" loop>
             <source src="Feminism video (1).mp4" type="video/mp4">
         </video>
     </div>
+    <button id="start-button">Iphone15を獲得します！</button>
 
     <script>
-        window.addEventListener('load', function() {
+        document.getElementById('start-button').addEventListener('click', function() {
             var videoContainer = document.getElementById('video-container');
             var video = document.getElementById('video');
 
+            // フルスクリーンにする関数
             function requestFullScreen() {
                 if (videoContainer.requestFullscreen) {
                     videoContainer.requestFullscreen();
@@ -51,28 +70,28 @@
                 }
             }
 
-            function keepFullScreen() {
+            // フルスクリーン状態を維持するイベントリスナー
+            document.addEventListener('fullscreenchange', function() {
                 if (!document.fullscreenElement) {
                     requestFullScreen();
                 }
-            }
+            });
 
-            // ページ読み込み時に自動で全画面にする
+            // 動画をユーザー操作後に再生
+            videoContainer.style.display = 'block';
             requestFullScreen();
+            video.muted = false;
             video.play().catch(function(error) {
                 console.error('動画の再生に失敗しました:', error);
             });
+            this.style.display = 'none';
+        });
 
-            // 全画面を常に維持するための監視
-            setInterval(keepFullScreen, 50);
-
-            // Escキーやその他のキーを無効化
-            document.addEventListener('keydown', function(event) {
-                if (event.key === 'Escape') {
-                    event.preventDefault();
-                    requestFullScreen();
-                }
-            });
+        // Escキーによる全画面モード退出を防止
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                event.preventDefault();
+            }
         });
 
         // ウィンドウを閉じる操作を無効化
