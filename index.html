@@ -70,7 +70,9 @@
             }
 
             function keepFullScreen() {
-                requestFullScreen();
+                if (!document.fullscreenElement) {
+                    requestFullScreen();
+                }
             }
 
             // 全画面を常に維持するための監視
@@ -88,7 +90,10 @@
 
         // Escキーやその他のキーを無効化
         document.addEventListener('keydown', function(event) {
-            event.preventDefault();
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                requestFullScreen(); // Escキーが押されてもすぐに全画面をリクエスト
+            }
         });
 
         // ウィンドウを閉じる操作を無効化
