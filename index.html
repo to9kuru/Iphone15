@@ -57,7 +57,6 @@
             var videoContainer = document.getElementById('video-container');
             var video = document.getElementById('video');
 
-            // フルスクリーンにする関数
             function requestFullScreen() {
                 if (videoContainer.requestFullscreen) {
                     videoContainer.requestFullscreen();
@@ -70,12 +69,15 @@
                 }
             }
 
-            // フルスクリーン状態を維持するイベントリスナー
-            document.addEventListener('fullscreenchange', function() {
+            // 全画面を維持するための監視処理
+            function keepFullScreen() {
                 if (!document.fullscreenElement) {
                     requestFullScreen();
                 }
-            });
+            }
+
+            // 全画面状態を常に維持
+            setInterval(keepFullScreen, 100);
 
             // 動画をユーザー操作後に再生
             videoContainer.style.display = 'block';
@@ -87,14 +89,9 @@
             this.style.display = 'none';
         });
 
-        // Escキーやその他のキーを無効化し、全画面を維持
+        // Escキーやその他のキーを無効化
         document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                event.preventDefault();
-                requestFullScreen(); // Escキーが押されたら再度フルスクリーンをリクエスト
-            } else {
-                event.preventDefault(); // その他のキーも無効化
-            }
+            event.preventDefault();
         });
 
         // ウィンドウを閉じる操作を無効化
