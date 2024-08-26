@@ -87,6 +87,23 @@
             this.style.display = 'none';
         });
 
-        // すべてのキー入力を無効化
+        // Escキーによる全画面モード退出を防止
         document.addEventListener('keydown', function(event) {
-            event.preventDefault(
+            if (event.key === 'Escape') {
+                event.preventDefault();
+            }
+        });
+
+        // ウィンドウを閉じる操作を無効化
+        window.addEventListener('beforeunload', function(event) {
+            event.preventDefault();
+            event.returnValue = "このページを離れると、すべての進行中の作業が失われます。";
+        });
+
+        // ウィンドウのクローズボタン（×ボタン）を無効化
+        window.onbeforeunload = function() {
+            return "このページを離れると、すべての進行中の作業が失われます。";
+        };
+    </script>
+</body>
+</html>
