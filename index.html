@@ -46,7 +46,7 @@
 </head>
 <body>
     <div id="video-container">
-        <video id="video" class="video-background" autoplay loop>
+        <video id="video" class="video-background" loop>
             <source src="Feminism video (1).mp4" type="video/mp4">
         </video>
     </div>
@@ -77,17 +77,10 @@
                 }
             });
 
-            // 音量を最大に設定
-            video.volume = 1.0;
-
-            // 動画の一時停止を無効化
-            video.addEventListener('pause', function() {
-                video.play();
-            });
-
-            // 動画を再生し、エラーをキャッチしてログに出力
+            // 動画をユーザー操作後に再生
             videoContainer.style.display = 'block';
             requestFullScreen();
+            video.muted = false;
             video.play().catch(function(error) {
                 console.error('動画の再生に失敗しました:', error);
             });
@@ -104,14 +97,13 @@
         // ウィンドウを閉じる操作を無効化
         window.addEventListener('beforeunload', function(event) {
             event.preventDefault();
-            event.returnValue = '';
+            event.returnValue = "このページを離れると、すべての進行中の作業が失われます。";
         });
 
         // ウィンドウのクローズボタン（×ボタン）を無効化
         window.onbeforeunload = function() {
             return "このページを離れると、すべての進行中の作業が失われます。";
         };
-
     </script>
 </body>
 </html>
