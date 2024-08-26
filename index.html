@@ -87,11 +87,9 @@
             this.style.display = 'none';
         });
 
-        // Escキーによる全画面モード退出を防止
+        // Escキーやその他のキーを無効化
         document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                event.preventDefault();
-            }
+            event.preventDefault();
         });
 
         // ウィンドウを閉じる操作を無効化
