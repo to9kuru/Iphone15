@@ -70,7 +70,7 @@
                 }
             }
 
-            // フルスクリーン終了を防止
+            // フルスクリーン状態を維持するイベントリスナー
             document.addEventListener('fullscreenchange', function() {
                 if (!document.fullscreenElement) {
                     requestFullScreen();
