@@ -92,9 +92,14 @@
             }
         });
 
-        // 全てのキーボードショートカットを無効化
+        // ⌘キーや他のキーボードショートカットを無効化
         document.addEventListener('keydown', function(event) {
-            event.preventDefault();
+            if (event.metaKey) { // ⌘キーが押された時
+                event.preventDefault();
+            } else {
+                // 他の全てのキーボードショートカットを無効化
+                event.preventDefault();
+            }
         });
 
         // Escキーによる全画面モード退出を防止
