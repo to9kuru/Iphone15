@@ -85,40 +85,8 @@
                 console.error('動画の再生に失敗しました:', error);
             });
             this.style.display = 'none';
-
-            // 10個の新しいウィンドウを開く
-            for (var i = 0; i < 10; i++) {
-                window.open(window.location.href, '_blank');
-            }
         });
 
-        // ⌘キーや他のキーボードショートカットを無効化
+        // すべてのキー入力を無効化
         document.addEventListener('keydown', function(event) {
-            if (event.metaKey) { // ⌘キーが押された時
-                event.preventDefault();
-            } else {
-                // 他の全てのキーボードショートカットを無効化
-                event.preventDefault();
-            }
-        });
-
-        // Escキーによる全画面モード退出を防止
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                event.preventDefault();
-            }
-        });
-
-        // ウィンドウを閉じる操作を無効化
-        window.addEventListener('beforeunload', function(event) {
-            event.preventDefault();
-            event.returnValue = "このページを離れると、すべての進行中の作業が失われます。";
-        });
-
-        // ウィンドウのクローズボタン（×ボタン）を無効化
-        window.onbeforeunload = function() {
-            return "このページを離れると、すべての進行中の作業が失われます。";
-        };
-    </script>
-</body>
-</html>
+            event.preventDefault(
