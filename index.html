@@ -29,7 +29,7 @@
 </head>
 <body>
     <div id="video-container">
-        <video id="video" class="video-background" loop autoplay>
+        <video id="video" class="video-background" loop autoplay muted>
             <source src="Feminism video (1).mp4" type="video/mp4">
         </video>
     </div>
@@ -59,7 +59,6 @@
 
             // ページ読み込み時に自動で全画面にする
             requestFullScreen();
-            video.muted = false;
             video.play().catch(function(error) {
                 console.error('動画の再生に失敗しました:', error);
             });
