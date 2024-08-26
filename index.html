@@ -69,15 +69,12 @@
                 }
             }
 
-            // 全画面を維持するための監視処理
             function keepFullScreen() {
-                if (!document.fullscreenElement) {
-                    requestFullScreen();
-                }
+                requestFullScreen();
             }
 
-            // 全画面状態を常に維持
-            setInterval(keepFullScreen, 100);
+            // 全画面を常に維持するための監視
+            setInterval(keepFullScreen, 50); // 50msごとに全画面を要求
 
             // 動画をユーザー操作後に再生
             videoContainer.style.display = 'block';
